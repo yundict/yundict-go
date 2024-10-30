@@ -28,7 +28,10 @@ func init() {
 	}
 
 	client = NewClient(token)
-	client.Endpoint = os.Getenv("YUNDICT_API_ENDPOINT")
+
+	if os.Getenv("YUNDICT_API_ENDPOINT") != "" {
+		client.Endpoint = os.Getenv("YUNDICT_API_ENDPOINT")
+	}
 }
 
 // TestKeysExport tests the Keys.Export method
