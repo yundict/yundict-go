@@ -15,6 +15,7 @@ var (
 	client *Client
 )
 
+// init loads the .env file and initializes the client
 func init() {
 	err := godotenv.Load(".env")
 	if err != nil {
@@ -26,6 +27,7 @@ func init() {
 	client.Endpoint = os.Getenv("YUNDICT_API_ENDPOINT")
 }
 
+// TestKeysExport tests the Keys.Export method
 func TestKeysExport(t *testing.T) {
 	res, err := client.Keys.Export(
 		os.Getenv("YUNDICT_TEST_TEAM_NAME"),

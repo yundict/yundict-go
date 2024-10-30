@@ -6,16 +6,21 @@ import (
 )
 
 const (
-	apiTokenHeader  = "X-Api-Token"
+	// apiTokenHeader is the header key for the API token
+	apiTokenHeader = "X-Api-Token"
+
+	// defaultEndpoint is the default API endpoint
 	defaultEndpoint = "https://api.yundict.com"
 )
 
+// Client is the client for the Yundict API
 type Client struct {
 	Endpoint string
 	Token    string
 	Keys     *KeysService
 }
 
+// NewClient creates a new Yundict API client
 func NewClient(token string) *Client {
 	c := &Client{
 		Endpoint: defaultEndpoint,
@@ -27,6 +32,7 @@ func NewClient(token string) *Client {
 	return c
 }
 
+// KeysService is the service for the keys endpoint
 type service struct {
 	client *Client
 }
