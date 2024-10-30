@@ -19,10 +19,14 @@ var (
 func init() {
 	err := godotenv.Load(".env")
 	if err != nil {
-		panic("Error loading .env file")
+		fmt.Println("No .env file found.")
 	}
 
 	token := os.Getenv("YUNDICT_API_TOKEN")
+	if token == "" {
+		panic("YUNDICT_API_TOKEN environment variable is not set")
+	}
+
 	client = NewClient(token)
 	client.Endpoint = os.Getenv("YUNDICT_API_ENDPOINT")
 }
