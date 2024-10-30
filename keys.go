@@ -3,6 +3,8 @@ package yundict
 import (
 	"encoding/json"
 	"fmt"
+	"net/url"
+	"strings"
 )
 
 type KeysService service
@@ -13,9 +15,17 @@ type KeysExportResponse struct {
 }
 
 // Export all keys
-func (s *KeysService) Export(teamName string, projectName string, exportType string) (*KeysExportResponse, error) {
-	path := fmt.Sprintf("/teams/%s/projects/%s/keys/export?type=%s", teamName, projectName, exportType)
-	body, err := s.client.Get(path)
+func (s *KeysService) Export(teamName string, projectName string, exportType string, languages []string) (*KeysExportResponse, error) {
+	queryParams := url.Values{}
+	queryParams.Add("type", exportType)
+	if len(languages) > 0 {
+		queryParams.Add("languages", strings.Join(languages, ","))
+	}
+
+	path := fmt.Sprintf("/teams/%s/projects/%s/keys/export", teamName, projectName)
+	fullPath := path + "?" + queryParams.Encode()
+
+	body, err := s.client.Get(fullPath)
 	if err != nil {
 		return nil, err
 	}
