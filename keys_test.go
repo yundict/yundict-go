@@ -1,23 +1,21 @@
-package test
+package yundict
 
 import (
 	"os"
 	"testing"
-
-	"github.com/yundict/yundict-go"
 )
 
 var (
-	client *yundict.Client
+	client *Client
 )
 
 func init() {
 	token := os.Getenv("YUNDICT_API_TOKEN")
-	client = yundict.NewClient(token)
+	client = NewClient(token)
 }
 
 func TestKeysExport(t *testing.T) {
-	res, err := client.Keys.Export("VCj0-P0d", "GtiQs", "json")
+	res, err := client.Keys.Export("test-team", "test-project", "json")
 	if err != nil {
 		t.Errorf("Keys.Export returned error: %v", err)
 	}
