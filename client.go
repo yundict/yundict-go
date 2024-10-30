@@ -7,18 +7,18 @@ import (
 
 const (
 	apiTokenHeader = "X-Api-Token"
-	defaultBaseURL = "https://api.yundict.com"
+	defaultEndpoint = "https://api.yundict.com"
 )
 
 type Client struct {
-	BaseURL string
+	Endpoint string
 	Token   string
 	Keys    *KeysService
 }
 
 func NewClient(token string) *Client {
 	c := &Client{
-		BaseURL: defaultBaseURL,
+		Endpoint: defaultEndpoint,
 		Token:   token,
 	}
 
@@ -34,7 +34,7 @@ type service struct {
 // Get makes a GET request to the given path
 func (c *Client) Get(path string) ([]byte, error) {
 
-	url := c.BaseURL + path
+	url := c.Endpoint + path
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Add(apiTokenHeader, c.Token)
 
